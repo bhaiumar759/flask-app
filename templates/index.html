@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vessel Mask Generator</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+
+<body class="bg-gray-100">
+    <div class="container mx-auto p-4">
+        <h1 class="text-3xl font-bold text-center mb-6">Vessel Mask Generator</h1>
+
+        <form method="POST" enctype="multipart/form-data" class="mb-4">
+            <input type="file" name="file" accept="image/jpeg,image/png"
+                class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 mb-2">
+            <button type="submit" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
+                Upload and Process
+            </button>
+        </form>
+
+        {% if error %}
+        <p class="text-red-500 mb-4">{{ error }}</p>
+        {% endif %}
+
+        {% if images %}
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div>
+                <h2 class="text-lg font-semibold">Original Image</h2>
+                <img src="{{ images.original }}" alt="Original" class="w-full h-auto rounded shadow">
+            </div>
+            <div>
+                <h2 class="text-lg font-semibold">Adaptive Threshold + Morphology</h2>
+                <img src="{{ images.morph }}" alt="Morphology" class="w-full h-auto rounded shadow">
+            </div>
+            <div>
+                <h2 class="text-lg font-semibold">Final Vessel Mask</h2>
+                <img src="{{ images.vessel_mask }}" alt="Vessel Mask" class="w-full h-auto rounded shadow">
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</body>
+
+</html>
